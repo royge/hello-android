@@ -1,6 +1,6 @@
 # Hello Android
 
-Another shot in Android Development
+My another shot in Android Development
 
 _"There is always a beginning for everything."_
 
