@@ -27,6 +27,19 @@ class ToDoStore(private val context: Context) {
         prefs.edit().putStringSet(TODOS_KEY, todos).apply()
     }
 
+    fun remove(todo: String) {
+        val prefs = context.getSharedPreferences(
+            TODOS_STORE_KEY,
+            MODE_PRIVATE,
+        )
+
+        val todos = prefs.getStringSet(TODOS_KEY, setOf())
+            ?.toMutableSet()
+        todos?.remove(todo)
+
+        prefs.edit().putStringSet(TODOS_KEY, todos).apply()
+    }
+
     companion object {
         const val TODOS_KEY: String = "todos"
         const val TODOS_STORE_KEY: String = "com.example.todolist.sharedprefs"
