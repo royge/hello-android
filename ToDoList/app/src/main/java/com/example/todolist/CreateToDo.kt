@@ -22,34 +22,31 @@ class CreateToDo : AppCompatActivity() {
         checkBox = findViewById(R.id.checkBox)
         editText = findViewById(R.id.editText)
 
-        if (intent.hasExtra("todoDesc")) {
+        if (intent.hasExtra("todo")) {
             return editToDo()
         }
 
         button.setOnClickListener{
-            var todoDesc = editText.text.toString()
-            if (checkBox.isChecked) {
-                todoDesc = "❗️$todoDesc"
-            }
-            store.add(todoDesc)
+            store.add(ToDoStore.ToDo(
+                editText.text.toString(),
+                checkBox.isChecked,
+            ))
             finish()
         }
     }
 
     private fun editToDo() {
-        val todo = intent.extras?.getString("todoDesc")
+        val todo = intent.extras?.getSerializable("todo") as ToDoStore.ToDo
 
-        checkBox.isChecked = todo!!.startsWith("❗️")
+        checkBox.isChecked = todo.isImportant
         checkBox.isEnabled = false
 
-        val todoDesc = todo.removePrefix("❗")
-
-        editText.setText(todoDesc)
+        editText.setText(todo.text())
         editText.isEnabled = false
 
         button.text = "Complete"
         button.setOnClickListener{
-            store.remove(todo.toString())
+            store.remove(todo)
             finish()
         }
     }

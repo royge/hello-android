@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoAdapter(private val todos: List<String>): RecyclerView.Adapter<ToDoAdapter.ToDoHolder>() {
+class ToDoAdapter(private val todos: List<ToDoStore.ToDo>): RecyclerView.Adapter<ToDoAdapter.ToDoHolder>() {
     class ToDoHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
         private var view: View = v
-        var todoDesc: String = ""
+        lateinit var todo: ToDoStore.ToDo
 
-        fun bindToDo(todoDesc: String) {
-            this.todoDesc = todoDesc
-            view.findViewById<TextView>(R.id.textView).text = todoDesc
+        fun bindToDo(todo: ToDoStore.ToDo) {
+            this.todo = todo
+            view.findViewById<TextView>(R.id.textView).text = todo.toString()
         }
 
         init {
@@ -24,7 +24,7 @@ class ToDoAdapter(private val todos: List<String>): RecyclerView.Adapter<ToDoAda
 
         override fun onClick(p0: View?) {
             val intent = Intent(view.context, CreateToDo::class.java)
-            intent.putExtra("todoDesc", todoDesc)
+            intent.putExtra("todo", todo)
             startActivity(view.context, intent, null)
         }
     }

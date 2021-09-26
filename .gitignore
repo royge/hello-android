@@ -87,3 +87,6 @@ lint/tmp/
 # VIM
 *.swp
 *.swo
+
+# MacOS
+.DS_Store
