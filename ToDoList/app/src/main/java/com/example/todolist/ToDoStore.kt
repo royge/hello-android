@@ -40,7 +40,7 @@ class ToDoStore(private val context: Context) {
             ?.toMutableSet()
             ?.toList() as List<String>
 
-        var todos = ArrayList<ToDo>(todoList.count())
+        val todos = ArrayList<ToDo>(todoList.count())
 
         for (todoJson in todoList) {
             todos.add(ToDo.fromJson(todoJson))
